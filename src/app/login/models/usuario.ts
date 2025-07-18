@@ -4,4 +4,5 @@ export class Usuario {
   id!: number;
   username!: string;
   permissao!: Permissao;
+  password!: string;
 }

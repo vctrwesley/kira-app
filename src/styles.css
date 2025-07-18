@@ -1,1 +1,158 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap");
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: var(--form-background);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--kira-text);
+  transition: background-color 0.4s;
+}
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --kira-primary: #9d09d1;
+  --kira-accent: #6f0ab2;
+  --kira-background: #eae4eb;
+  --bg-branco: #ffffff;
+  /* texto */
+  --kira-text: #37383c;
+  --kira-text02: #1a1918;
+  --kira-text03: #ffffff;
+  /* sistema */
+  --success: #5ea828;
+  --info: #177ab8;
+  --warning: #cfa11a;
+  --danger: #b72130;
+  --info-hover: #1b88cc;
+  --danger-hover: #d22536;
+  /* borda */
+  --kira-border: #e0e0e0;
+  --kira-border02: #ced4da;
+  --kira-border03: #bfc4de;
+  /* Buttons */
+  --primary-button: #5ea828;
+  --primary-btnHover: #1d7206;
+  /* container background */
+  --form-background: #ffffff;
+  --container-background: #ffffff;
+  --container-modal: #ffffff;
+  /* inputs */
+  --bg-input: #ffffff;
+  /* tabela */
+  --table: #ffffff;
+  --table-child: #fafafa;
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+button {
+  all: none;
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--kira-text03);
+  background-color: var(--primary-button);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--primary-btnHover);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--kira-primary);
+  outline-offset: 2px;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+  background: var(--form-background);
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color var(--transition);
+  background: var(--form-background);
+  color: var(--kira-text);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--kira-primary);
+  outline: none;
+}
