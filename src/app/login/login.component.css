@@ -1,5 +1,17 @@
 main {
   background: var(--bg-branco);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.invisible {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out 0.2s;
 }
 
 .login-container {
@@ -132,6 +144,7 @@ main {
 
 .overlay-loader.fade-out {
   opacity: 0;
+  pointer-events: none;
   visibility: hidden;
 }
 
