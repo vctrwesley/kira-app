@@ -1,4 +1,10 @@
-<main>
+<div class="overlay-loader" [ngClass]="{ 'fade-out': !loading }">
+  <img src="assets/icones/logo-kira-branca.svg" class="logo-loading" />
+  <h2>As melhores escolhas você faz conosco</h2>
+  <!-- <div class="spinner"></div> -->
+</div>
+
+<main [ngClass]="{ 'fade-in': !loading }">
   <div class="login-container">
     <div class="login-form">
       <img src="assets/icones/logo-kira-roxa.svg" alt="Logomarca" class="logo-kira" />

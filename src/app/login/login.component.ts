@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/config/auth.service';
 import { Usuario } from './models/usuario';
@@ -9,7 +9,7 @@ import { Permissao } from './models/permissao';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   mensagemSucesso: string = '';
@@ -21,7 +21,15 @@ export class LoginComponent {
     confirmPassword: false,
   };
 
+  loading = true;
+
   constructor(private router: Router, private authService: AuthService) {}
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
+  }
 
   onSubmit() {}
 
