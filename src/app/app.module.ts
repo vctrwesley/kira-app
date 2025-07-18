@@ -1,18 +1,29 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClienteComponent } from './sistema/dashboard/cliente/cliente.component';
+import { TemplateModule } from './template/template.module';
+import { LayoutComponent } from './layout/layout.component';
+import { LoginComponent } from './login/login.component';
+import { SistemaModule } from './sistema/sistema.module';
+import { SharedModule } from './shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClienteComponent
+    LayoutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    TemplateModule,
+    SistemaModule,
+    SharedModule,
+    FormsModule,
   ],
   providers: [
     provideClientHydration()
