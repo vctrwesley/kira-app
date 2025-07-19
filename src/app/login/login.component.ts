@@ -31,7 +31,47 @@ export class LoginComponent implements OnInit {
     }, 2000);
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.authService.tentarLogar(this.email, this.password).subscribe(
+      (response: any) => {
+        const access_token = response.access_token;
+        localStorage.setItem('access_token', access_token);
+
+        const userId = this.authService.getUserIdFromToken() ?? '';
+        localStorage.setItem('user_id', userId || '');
+
+        const usuario: Usuario = {
+          id: userId,
+          username: response.username,
+          password: '',
+          email: response.email || '',
+          confirmPassword: '',
+          permissao:
+            response.authorities.length > 0 ? response.authorities[0] : null,
+          darkMode: response.darkMode || false,
+        };
+        localStorage.setItem('usuario', JSON.stringify(usuario));
+
+        switch (usuario.permissao) {
+          case Permissao.ADMIN:
+            this.router.navigate(['/usuario/dashboard-locador']);
+            break;
+          case Permissao.LOCADOR:
+            this.router.navigate(['/usuario/dashboard-locador']);
+            break;
+          case Permissao.LOCATARIO:
+            this.router.navigate(['/usuario/inicio']);
+            break;
+          default:
+            this.router.navigate(['/login']);
+            break;
+        }
+      },
+      (errorResponse) => {
+        this.errors = ['Usuário e/ou senha incorreto(s).'];
+      }
+    );
+  }
 
   togglePasswordVisibility(field: string) {
     this.passwordVisible[field] = !this.passwordVisible[field];

@@ -1,8 +1,11 @@
-import { Permissao } from "./permissao";
+import { Permissao } from './permissao';
 
 export class Usuario {
-  id!: number;
+  id!: string;
   username!: string;
   permissao!: Permissao;
   password!: string;
+  confirmPassword!: string;
+  email!: string;
+  darkMode!: boolean;
 }

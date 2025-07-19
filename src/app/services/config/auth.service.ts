@@ -47,6 +47,15 @@ export class AuthService {
     return null;
   }
 
+  getUserIdFromToken(): string | null {
+    const token = this.obterToken();
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      return decodedToken?.sub || null;
+    }
+    return null;
+  }
+
   obterPerfilUsuario(): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiURL}/token`).pipe(
       map((response) => response),
@@ -57,5 +66,19 @@ export class AuthService {
         );
       })
     );
+  }
+
+  tentarLogar(email: string, password: string): Observable<any> {
+    const params = new HttpParams()
+      .set('username', email)
+      .set('password', password)
+      .set('grant_type', 'password');
+
+    const headers = {
+      Authorization: 'Basic ' + btoa(`${this.clientID}:${this.clientSecret}`),
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+
+    return this.http.post(this.tokenURL, params.toString(), { headers });
   }
 }
