@@ -24,8 +24,8 @@
           </ng-template>
         </div>
         <div class="dropdown-menu" id="dropdown-menu" [ngClass]="{ 'show': isDropdownOpen }">
-          <button routerLink="/usuario/meu-perfil" class="dropdown-item">Meu perfil</button>
-          <button class="dropdown-item" (click)="logout()">Sair</button>
+          <button routerLink="/usuario/minha-conta" class="dropdown-item">Minha conta</button>
+          <button routerLink="/usuario/favoritos" class="dropdown-item">Favoritos</button>
         </div>
       </div>
     </div>
@@ -61,8 +61,42 @@
               <img src="assets/icones/sidebar/dashboard.svg" alt="home icon" />
               <span>Dashboard</span>
             </a>
+
+            <a
+              routerLink="/usuario/meus-imoveis"
+              class="sidebar-link"
+              [ngClass]="{ 'active-link': isActive('/usuario/meus-imoveis') }"
+            >
+              <img src="assets/icones/sidebar/dashboard.svg" alt="home icon" />
+              <span>Meus imóveis</span>
+            </a>
+
+            <a
+              routerLink="/usuario/conversas"
+              class="sidebar-link"
+              [ngClass]="{ 'active-link': isActive('/usuario/conversas') }"
+            >
+              <img src="assets/icones/sidebar/chat.svg" alt="home icon" />
+              <span>Chat</span>
+            </a>
+
+            <a
+              routerLink="/usuario/suporte"
+              class="sidebar-link"
+              [ngClass]="{ 'active-link': isActive('/usuario/suporte') }"
+            >
+              <img src="assets/icones/sidebar/suporte.svg" alt="home icon" />
+              <span>Suporte</span>
+            </a>
           </div>
-        </div>   
+        </div>
+        
+        <div class="sidebar-actions">
+            <button class="sidebar-link log-out">
+              <img src="assets/icones/sidebar/sair.svg" alt="sair icon" />
+              <span>Sair</span>
+            </button>
+        </div>
       </mat-nav-list>
     </div>
   </mat-drawer>

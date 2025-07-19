@@ -31,7 +31,7 @@ const routes: Routes = [
 
     {path:'minha-conta', component: MinhaContaComponent}, //locatario e locador
     {path:'suporte', component: SuporteComponent}, //locatario e locador
-    {path:'lista-conversas', component: ListaDeConversasComponent}, //locatario e locador
+    {path:'conversas', component: ListaDeConversasComponent}, //locatario e locador
     {path:'chat/:id', component: ChatComponent}, //locatario e locador
 
     ] 
