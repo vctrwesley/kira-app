@@ -17,6 +17,7 @@ import { SuporteComponent } from './suporte/suporte.component';
 import { ChatComponent } from './comunicacao/chat/chat.component';
 import { ListaDeConversasComponent } from './comunicacao/lista-de-conversas/lista-de-conversas.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,14 @@ import { SharedModule } from '../shared/shared.module';
     ChatComponent,
     ListaDeConversasComponent,
   ],
-  imports: [CommonModule, SistemaRoutingModule, FormsModule, SharedModule],
+  imports: [
+    CommonModule,
+    SistemaRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
+    NgxMaskModule.forRoot(),
+  ],
   providers: [
     AuthService,
     {

@@ -1,1 +1,114 @@
-<p>cadastro-de-imoveis works!</p>
+<div class="main-container">
+    <div class="back-title">
+        <img src="assets/icones/seta-back.svg" alt="Back" class="back-icon" (click)="goBack()">
+        <span>{{ isEditMode ? 'Editar imóvel' : 'Cadastrar imóvel' }}</span>
+    </div>
+
+    <div class="forms-container">
+        <form (ngSubmit)="onSubmit()" [formGroup]="imovelForm">
+            <div class="form-group">
+                <label for="nome">Nome<span *ngIf="isRequired('nome')" class="required-asterisk">*</span></label>
+                <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o nome do imóvel" required maxlength="250">
+                <div *ngIf="imovelForm.get('nome')?.invalid && (imovelForm.get('nome')?.touched || imovelForm.get('nome')?.dirty)" class="error-obrigatorio">
+                    O campo Nome é obrigatório.
+                </div>
+            </div>
+
+            <div class="divisao">
+                <p>Endereço</p>
+                <hr class="line">
+            </div>
+
+            <div formGroupName="endereco" class="endereco-container">
+                <div class="input-duo">
+                    <div class="form-group">
+                        <label for="estado">Estado<span *ngIf="isRequired('endereco.estado')" class="required-asterisk">*</span></label>
+                        <app-select-padrao
+                          label="Selecione o estado"
+                          [options]="estados"
+                          [(selectedValue)]="selectedEstado"
+                          (selectedValueChange)="onEstadoChange($event)"
+                          formControlName="estado"
+                          [showDefaultOption]="false"
+                          [defaultLabel]="''"
+                          [defaultValue]="''">
+                        </app-select-padrao>
+                    </div>
+                    <div class="form-group">
+                        <label for="cidade">Cidade<span *ngIf="isRequired('endereco.cidade')" class="required-asterisk">*</span></label>
+                        <app-select-padrao
+                          label="Selecione a cidade"
+                          [options]="cidades"
+                          [(selectedValue)]="selectedCidade"
+                          (selectedValueChange)="onCidadeChange($event)"
+                          formControlName="cidade"
+                          [disabled]="imovelForm.get('endereco.cidade')?.disabled === true">
+                        </app-select-padrao>
+                    </div>
+                </div>
+
+                <div class="input-duo">
+                    <div class="form-group">
+                        <label for="cep">CEP<span *ngIf="isRequired('endereco.cep')" class="required-asterisk">*</span></label>
+                        <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="00000-000" mask="00000-000" [dropSpecialCharacters]="false" required>
+                        <div *ngIf="imovelForm.get('endereco.cep')?.invalid && (imovelForm.get('endereco.cep')?.touched || imovelForm.get('endereco.cep')?.dirty)" class="error-obrigatorio">
+                            O campo CEP é obrigatório.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bairro">Bairro<span *ngIf="isRequired('endereco.bairro')" class="required-asterisk">*</span></label>
+                        <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro" required maxlength="250">
+                        <div *ngIf="imovelForm.get('endereco.bairro')?.invalid && (imovelForm.get('endereco.bairro')?.touched || imovelForm.get('endereco.bairro')?.dirty)" class="error-obrigatorio">
+                            O campo Bairro é obrigatório.
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="input-duo">
+                    <div class="form-group">
+                        <label for="rua">Rua<span *ngIf="isRequired('endereco.rua')" class="required-asterisk">*</span></label>
+                        <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua" required maxlength="250">
+                        <div *ngIf="imovelForm.get('endereco.rua')?.invalid && (imovelForm.get('endereco.rua')?.touched || imovelForm.get('endereco.rua')?.dirty)" class="error-obrigatorio">
+                            O campo Rua é obrigatório.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="numero">Número<span *ngIf="isRequired('endereco.numero')" class="required-asterisk">*</span></label>
+                        <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número" required maxlength="250">
+                        <div *ngIf="imovelForm.get('endereco.numero')?.invalid && (imovelForm.get('endereco.numero')?.touched || imovelForm.get('endereco.numero')?.dirty)" class="error-obrigatorio">
+                            O campo Número é obrigatório.
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="input-duo">
+                    <div class="form-group">
+                        <label for="complemento">Complemento</label>
+                        <input type="text" id="complemento" name="complemento" formControlName="complemento" class="form-control" placeholder="Digite um complemento" maxlength="250">
+                    </div>
+                    <div class="form-group">
+                        <label for="logradouro">Logradouro</label>
+                        <input type="text" id="logradouro" name="logradouro" formControlName="logradouro" class="form-control" placeholder="Digite o logradouro" maxlength="250">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-btn">
+                <button type="submit" class="btn-cadastrar">
+                    {{ isEditMode ? 'Atualizar imóvel' : 'Cadastrar imóvel' }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+    </div>
+    
+    <!-- <app-loading *ngIf="isLoading"></app-loading> -->
+</div>

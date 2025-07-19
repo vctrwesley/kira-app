@@ -1,0 +1,110 @@
+/* select.component.css */
+.select-container {
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 50px;
+  border: 1px solid var(--kira-border02);
+  border-radius: 8px;
+}
+
+label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  color: var(--kira-text);
+}
+
+label.active {
+  display: none;
+}
+
+.select-dropdown {
+  background: var(--form-background);
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.selected-value {
+  font-size: 14px;
+  font-weight: 500;
+  flex-grow: 1;
+  color: var(--kira-text);
+}
+
+.options-container {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: var(--container-modal);
+  color: var(--kira-text);
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 12;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+  color: var(--kira-text);
+  background: var(--container-modal);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.option:hover,
+.option.selected {
+  background: #f0f0f0;
+  color: var(--kira-primary);
+  font-weight: 700;
+}
+
+.arrow-down {
+  width: 24px;
+  height: auto;
+}
+
+.icon-sub {
+  transition: transform 0.3s ease;
+}
+
+.icon-rotate {
+  transform: rotate(180deg);
+}
+
+.select-dropdown.active .arrow-down,
+.select-dropdown:hover .arrow-down {
+  border-top-color: var(--kira-primary);
+}
+
+.select-dropdown.disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .select-dropdown {
+    padding: 8px;
+  }
+
+  .selected-value {
+    font-size: 12px;
+  }
+
+  label.active {
+    top: 10px;
+    font-size: 9px;
+  }
+}
