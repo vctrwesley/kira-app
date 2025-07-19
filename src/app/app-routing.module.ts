@@ -16,12 +16,12 @@ const routes: Routes = [
       {
         path: 'dashboard-locador',
         component: InicioLocadorComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
       },
       {
         path: 'inicio',
         component: InicioLocatarioComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
       },
     ],
   },

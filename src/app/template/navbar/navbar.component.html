@@ -1,1 +1,76 @@
-<p>navbar works!</p>
+<!-- HEADER -->
+<header #header class="header" id="header" [class.left-pd]="isSidebarOpen">
+    <div class="header-container">
+      <button (click)="toggleSidebar()" class="header-toggle" id="header-toggle">
+        <img src="assets/icones/sidebar/menu.svg" alt="image" />
+      </button>
+
+      <div class="header-user">
+        <div class="notificacao">
+          <img src="assets/icones/sidebar/sino.svg" alt="Notificações" />
+        </div>
+
+        <div class="usuario" (click)="toggleDropdown()">
+          <div class="user-photo" *ngIf="fotoUsuario; else fallbackPhoto">
+            <img [src]="fotoUsuario" alt="Foto do usuário" class="user-photo">
+          </div>
+          <ng-template #fallbackPhoto>
+            <div
+              class="user-initial"
+              [style.background-color]="getRandomColor(nomeUsuario)"
+            >
+              {{ getInitial(nomeUsuario) }}
+            </div>
+          </ng-template>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" [ngClass]="{ 'show': isDropdownOpen }">
+          <button routerLink="/usuario/meu-perfil" class="dropdown-item">Meu perfil</button>
+          <button class="dropdown-item" (click)="logout()">Sair</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <mat-drawer-container>
+  <!-- SIDEBAR -->
+  <mat-drawer #sidebar class="sidebar" id="sidebar" mode="side" opened [class.show-sidebar]="isSidebarOpen">
+    <div class="sidebar-container">
+      <div class="sidebar-logo">
+        <div class="sidebar-img">
+          <img src="assets/icones/logo-kira-roxa.svg" alt="image" />
+        </div>
+      </div>
+
+      <mat-nav-list class="sidebar-content">
+        <div>
+          <div class="sidebar-list">
+            <a
+              routerLink="/usuario/inicio"
+              class="sidebar-link"
+              [ngClass]="{ 'active-link': isActive('/usuario/inicio') }"
+            >
+              <img src="assets/icones/sidebar/home.svg" alt="home icon" />
+              <span>Início</span>
+            </a>
+      
+            <a
+              routerLink="/usuario/dashboard-locador"
+              class="sidebar-link"
+              [ngClass]="{ 'active-link': isActive('/usuario/dashboard-locador') }"
+            >
+              <img src="assets/icones/sidebar/dashboard.svg" alt="home icon" />
+              <span>Dashboard</span>
+            </a>
+          </div>
+        </div>   
+      </mat-nav-list>
+    </div>
+  </mat-drawer>
+
+<!-- MAIN CONTENT -->
+  <mat-drawer-content #content class="drawer-content" [class.shifted]="isSidebarOpen">
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

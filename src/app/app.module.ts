@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/config/auth.service';
 import { TokenInterceptor } from './services/config/token.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [AppComponent, LayoutComponent, LoginComponent],
@@ -33,6 +34,7 @@ import { TokenInterceptor } from './services/config/token.interceptor';
       useClass: TokenInterceptor,
       multi: true,
     },
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })

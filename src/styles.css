@@ -31,6 +31,7 @@ html {
   --kira-primary: #9d09d1;
   --kira-accent: #6f0ab2;
   --kira-background: #eae4eb;
+  --kira-sidebar-bg: #f9f8fa;
   --bg-branco: #ffffff;
   /* texto */
   --kira-text: #37383c;
@@ -156,3 +157,6 @@ select:focus {
   border-color: var(--kira-primary);
   outline: none;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
