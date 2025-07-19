@@ -11,6 +11,8 @@ import { VisualizarAnuncioComponent } from './locatario/visualizar-anuncio/visua
 import { FavoritosComponent } from './locatario/favoritos/favoritos.component';
 import { MinhaContaComponent } from './minha-conta/minha-conta.component';
 import { SuporteComponent } from './suporte/suporte.component';
+import { ChatComponent } from './comunicacao/chat/chat.component';
+import { ListaDeConversasComponent } from './comunicacao/lista-de-conversas/lista-de-conversas.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { SuporteComponent } from './suporte/suporte.component';
     VisualizarAnuncioComponent,
     FavoritosComponent,
     MinhaContaComponent,
-    SuporteComponent
+    SuporteComponent,
+    ChatComponent,
+    ListaDeConversasComponent
   ],
   imports: [
     CommonModule, 

@@ -9,6 +9,10 @@ import { MeusImoveisComponent } from './locador/meus-imoveis/meus-imoveis.compon
 import { VisualizarImovelComponent } from './locador/visualizar-imovel/visualizar-imovel.component';
 import { VisualizarAnuncioComponent } from './locatario/visualizar-anuncio/visualizar-anuncio.component';
 import { FavoritosComponent } from './locatario/favoritos/favoritos.component';
+import { MinhaContaComponent } from './minha-conta/minha-conta.component';
+import { SuporteComponent } from './suporte/suporte.component';
+import { ListaDeConversasComponent } from './comunicacao/lista-de-conversas/lista-de-conversas.component';
+import { ChatComponent } from './comunicacao/chat/chat.component';
 
 const routes: Routes = [
    {  path: 'usuario', 
@@ -24,6 +28,12 @@ const routes: Routes = [
     {path:'visualizar-imovel/:id', component: VisualizarImovelComponent}, //locador
     {path:'visualizar-anuncio/:id', component: VisualizarAnuncioComponent}, //locatario
     {path:'favoritos', component: FavoritosComponent}, //locatario
+
+    {path:'minha-conta', component: MinhaContaComponent}, //locatario e locador
+    {path:'suporte', component: SuporteComponent}, //locatario e locador
+    {path:'lista-conversas', component: ListaDeConversasComponent}, //locatario e locador
+    {path:'chat/:id', component: ChatComponent}, //locatario e locador
+
     ] 
   }
 ];
