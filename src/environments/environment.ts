@@ -11,6 +11,6 @@ export const environment: Environment = {
   //apiURLBase: 'http://localhost:8088',
   apiURLBase: 'https://kira-api-2omz.onrender.com/',
   clientId: 'kira-api',
-  clientSecret: '@2026',
+  clientSecret: '@2025',
   obterTokenUrl: '/oauth/token',
 };
