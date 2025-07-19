@@ -376,6 +376,26 @@ mat-drawer-content.shifted {
   transform: none;
 }
 
+.notificacao:hover::before {
+  opacity: 1;
+}
+
+.notificacao:active {
+  transform: translateY(0) scale(0.98);
+  transition: all 0.1s ease;
+}
+
+.notificacao img {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+  z-index: 2;
+  position: relative;
+}
+
+.notificacao:hover img {
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
 /* BREAKPOINTS */
 @media screen and (max-width: 899px) {
   .header {
