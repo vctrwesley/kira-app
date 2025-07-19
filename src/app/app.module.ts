@@ -15,9 +15,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/config/auth.service';
 import { TokenInterceptor } from './services/config/token.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
+import { EsqueciSenhaComponent } from './autenticacao/esqueci-senha/esqueci-senha.component';
+import { ResetPasswordComponent } from './autenticacao/reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent, LoginComponent],
+  declarations: [AppComponent, LayoutComponent, LoginComponent, CadastroComponent, EsqueciSenhaComponent, ResetPasswordComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
