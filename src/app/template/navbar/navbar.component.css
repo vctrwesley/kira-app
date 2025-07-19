@@ -496,7 +496,7 @@ mat-drawer-content.shifted {
   }
 
   .header-user {
-    gap: 0;
+    gap: 8px;
   }
 
   .user-name,
