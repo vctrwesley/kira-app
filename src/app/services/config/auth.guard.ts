@@ -6,6 +6,7 @@ import {
   Router,
 } from '@angular/router';
 import { AuthService } from './auth.service';
+import { Permissao } from '../../login/models/permissao';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,7 @@ export class AuthGuard implements CanActivate {
     const usuario = this.authService.getUsuarioAutenticado();
     const role = usuario?.permissao;
 
-    if (role === 'ROLE_LOCADOR' || role === 'ROLE_LOCATARIO') {
+    if (role == 'ROLE_ADMIN' || role === 'ROLE_LOCADOR' || role === 'ROLE_LOCATARIO') {
       return true;
     }
 

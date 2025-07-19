@@ -17,7 +17,7 @@ import { ChatComponent } from './comunicacao/chat/chat.component';
 const routes: Routes = [
    {  path: 'usuario', 
     component: LayoutComponent,
-    // canActivate: [AuthGuard],  
+    canActivate: [AuthGuard],  
     children: [
 
     {path:'dashboard-locador', component: InicioLocadorComponent}, //locador

@@ -79,6 +79,12 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
+    console.log(
+      'Client credentials:',
+      btoa(`${this.clientID}:${this.clientSecret}`)
+    );
+    console.log('Headers:', headers);
+
     return this.http.post(this.tokenURL, params.toString(), { headers });
   }
 }

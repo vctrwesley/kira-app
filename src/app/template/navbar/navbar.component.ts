@@ -42,7 +42,7 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit(): void {
-    // this.carregarPerfilUsuario();
+    this.carregarPerfilUsuario();
   }
 
   ngAfterViewInit(): void {
@@ -126,18 +126,18 @@ export class NavbarComponent {
     return colors[index];
   }
 
-  // private carregarPerfilUsuario(): void {
-  //   this.authService.obterPerfilUsuario().subscribe({
-  //     next: (response: Usuario) => {
-  //       console.log('Perfil do usuário:', response);
-  //       this.nomeUsuario = response.username;
-  //       const permissao = response.permissao;
-  //       this.permissaoUsuario =
-  //         this.permissaoDescricao[permissao] || 'Permissão desconhecida';
-  //     },
-  //     error: (err: any) => {
-  //       console.error('Erro ao buscar perfil do usuário', err);
-  //     },
-  //   });
-  // }
+  private carregarPerfilUsuario(): void {
+    this.authService.obterPerfilUsuario().subscribe({
+      next: (response: Usuario) => {
+        console.log('Perfil do usuário:', response);
+        this.nomeUsuario = response.username;
+        const permissao = response.permissao;
+        this.permissaoUsuario =
+          this.permissaoDescricao[permissao] || 'Permissão desconhecida';
+      },
+      error: (err: any) => {
+        console.error('Erro ao buscar perfil do usuário', err);
+      },
+    });
+  }
 }
