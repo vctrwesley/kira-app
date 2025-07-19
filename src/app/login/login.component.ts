@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
         const usuario: Usuario = {
           id: userId,
           username: response.username,
+          nome: response.nome || response.username,
           password: '',
           email: response.email || '',
           confirmPassword: '',

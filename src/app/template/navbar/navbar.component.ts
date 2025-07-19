@@ -130,7 +130,7 @@ export class NavbarComponent {
     this.authService.obterPerfilUsuario().subscribe({
       next: (response: Usuario) => {
         console.log('Perfil do usuário:', response);
-        this.nomeUsuario = response.username;
+        this.nomeUsuario = response.nome;
         const permissao = response.permissao;
         this.permissaoUsuario =
           this.permissaoDescricao[permissao] || 'Permissão desconhecida';

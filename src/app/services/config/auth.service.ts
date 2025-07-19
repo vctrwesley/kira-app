@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   obterPerfilUsuario(): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiURL}/token`).pipe(
+    return this.http.get<Usuario>(`${this.apiURL}/me`).pipe(
       map((response) => response),
       catchError((error: HttpErrorResponse) => {
         console.error('Erro ao obter perfil do usuário:', error);
