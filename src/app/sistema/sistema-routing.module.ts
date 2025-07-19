@@ -24,9 +24,10 @@ const routes: Routes = [
     {path:'inicio', component: InicioLocatarioComponent}, //locatario
 
     {path:'cadastro-imovel', component: CadastroDeImoveisComponent}, //locador
+    {path:'cadastro-imovel/:id', component: CadastroDeImoveisComponent}, //locador
     {path:'meus-imoveis', component: MeusImoveisComponent}, //locador
-    {path:'visualizar-imovel/:id', component: VisualizarImovelComponent}, //locador
-    {path:'visualizar-anuncio/:id', component: VisualizarAnuncioComponent}, //locatario
+    {path:'detalhes-imovel/:id', component: VisualizarImovelComponent}, //locador
+    {path:'detalhes-anuncio/:id', component: VisualizarAnuncioComponent}, //locatario
     {path:'favoritos', component: FavoritosComponent}, //locatario
 
     {path:'minha-conta', component: MinhaContaComponent}, //locatario e locador

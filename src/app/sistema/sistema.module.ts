@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SistemaRoutingModule } from './sistema-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../services/config/auth.service';
+import { TokenInterceptor } from '../services/config/token.interceptor';
 import { InicioLocadorComponent } from './dashboard/inicio-locador/inicio-locador.component';
 import { InicioLocatarioComponent } from './dashboard/inicio-locatario/inicio-locatario.component';
 import { CadastroDeImoveisComponent } from './locador/cadastro-de-imoveis/cadastro-de-imoveis.component';
@@ -13,6 +16,7 @@ import { MinhaContaComponent } from './minha-conta/minha-conta.component';
 import { SuporteComponent } from './suporte/suporte.component';
 import { ChatComponent } from './comunicacao/chat/chat.component';
 import { ListaDeConversasComponent } from './comunicacao/lista-de-conversas/lista-de-conversas.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,12 +30,16 @@ import { ListaDeConversasComponent } from './comunicacao/lista-de-conversas/list
     MinhaContaComponent,
     SuporteComponent,
     ChatComponent,
-    ListaDeConversasComponent
+    ListaDeConversasComponent,
   ],
-  imports: [
-    CommonModule, 
-    SistemaRoutingModule, 
-    FormsModule, 
+  imports: [CommonModule, SistemaRoutingModule, FormsModule, SharedModule],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
   ],
 })
 export class SistemaModule {}
