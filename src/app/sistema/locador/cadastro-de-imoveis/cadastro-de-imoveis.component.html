@@ -7,9 +7,9 @@
     <div class="forms-container">
         <form (ngSubmit)="onSubmit()" [formGroup]="imovelForm">
             <div class="form-group">
-                <label for="nome">Nome<span *ngIf="isRequired('nome')" class="required-asterisk">*</span></label>
-                <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o nome do imóvel" required maxlength="250">
-                <div *ngIf="imovelForm.get('nome')?.invalid && (imovelForm.get('nome')?.touched || imovelForm.get('nome')?.dirty)" class="error-obrigatorio">
+                <label for="titulo">Nome<span *ngIf="isRequired('titulo')" class="required-asterisk">*</span></label>
+                <input type="text" id="titulo" name="titulo" formControlName="titulo" class="form-control" placeholder="Digite o nome do imóvel" required maxlength="250">
+                <div *ngIf="imovelForm.get('titulo')?.invalid && (imovelForm.get('titulo')?.touched || imovelForm.get('titulo')?.dirty)" class="error-obrigatorio">
                     O campo Nome é obrigatório.
                 </div>
             </div>

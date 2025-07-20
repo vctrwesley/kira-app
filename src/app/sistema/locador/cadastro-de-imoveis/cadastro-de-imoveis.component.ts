@@ -42,7 +42,7 @@ export class CadastroDeImoveisComponent implements OnInit {
     private enderecoService: EnderecoService
   ) {
     this.imovelForm = this.fb.group({
-      nome: ['', Validators.required],
+      titulo: ['', Validators.required],
       endereco: this.fb.group({
         estado: ['', Validators.required],
         cidade: ['', Validators.required],

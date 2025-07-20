@@ -127,7 +127,7 @@ export class MeusImoveisComponent {
         this.fetchImoveis();
         this.showMessage(
           'success',
-          `Imóvel "${imovelRemovido?.nome || ''} - ${
+          `Imóvel "${imovelRemovido?.titulo || ''} - ${
             imovelRemovido?.endereco?.cidade || '-'
           }" deletado com sucesso!`
         );
@@ -161,7 +161,7 @@ export class MeusImoveisComponent {
     //     {
     //       title: 'Remoção de Imóvel',
     //       description: `Tem certeza que deseja excluir o imóvel <strong>${
-    //         imovel.nome
+    //         imovel.titulo
     //       } - ${imovel.endereco?.cidade || '-'}</strong>?`,
     //       item: imovel,
     //       deletarTextoBotao: 'Remover',

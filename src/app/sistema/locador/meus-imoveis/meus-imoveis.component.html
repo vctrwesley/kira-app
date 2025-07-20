@@ -35,7 +35,7 @@
                 <tr *ngFor="let imovel of imoveisPaginados">
                     <td>
                         <div class="perfil">
-                            <span>{{ imovel.nome || '-' }}</span>
+                            <span>{{ imovel.titulo || '-' }}</span>
                         </div>
                     </td>
                     <td>{{ imovel.endereco.rua }}, {{ imovel.endereco.numero }} - {{ imovel.endereco.bairro }}, {{ imovel.endereco.cidade }} - {{ imovel.endereco.estado }}, {{ imovel.endereco.cep }}</td>
