@@ -14,6 +14,8 @@ import {
   EnderecoService,
   Estado,
 } from '../../../services/locador/endereco.service';
+import { TipoImovel } from '../enums/tipo-imovel';
+import { tipoImovelDescricao } from '../enums/tipo-imovel-descricao';
 
 @Component({
   selector: 'app-cadastro-de-imoveis',
@@ -32,6 +34,11 @@ export class CadastroDeImoveisComponent implements OnInit {
   selectedEstado: string = '';
   cidades: { value: string; description: string }[] = [];
   selectedCidade: string = '';
+  tipos = Object.keys(TipoImovel).map((key) => ({
+    value: TipoImovel[key as keyof typeof TipoImovel],
+    description: tipoImovelDescricao[TipoImovel[key as keyof typeof TipoImovel]],
+  }));
+  selectedTipo: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +60,12 @@ export class CadastroDeImoveisComponent implements OnInit {
         logradouro: [''],
         complemento: [''],
       }),
+      descricao: [''],
+      locadorId: [null, Validators.required],
+      mobiliado: [true, Validators.required],
+      numQuartos: [0],
+      preco: [0, [Validators.required, Validators.min(0)]],
+      tipo: ['', Validators.required],
     });
   }
 
