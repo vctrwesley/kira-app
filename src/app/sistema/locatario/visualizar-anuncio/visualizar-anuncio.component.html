@@ -1,1 +1,201 @@
-<p>visualizar-anuncio works!</p>
+<div class="main-container">
+  <!-- Header com navegação -->
+  <div class="header-navigation">
+    <div class="back-title">
+      <img
+        src="assets/icones/seta-back.svg"
+        alt="Voltar"
+        class="back-icon"
+        (click)="goBack()"
+      />
+      <span>Detalhes do Imóvel</span>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="progress-bar-container" *ngIf="isLoading">
+    <div class="progress-bar"></div>
+  </div>
+
+  <!-- Erro -->
+  <div class="error-container" *ngIf="errorMessage && !isLoading">
+    <div class="error-message">
+      <img src="assets/imagens/empty/error.svg" alt="Erro" />
+      <h3>Ops! Algo deu errado</h3>
+      <p>{{ errorMessage }}</p>
+      <button class="btn-voltar" (click)="voltarParaInicio()">
+        Voltar para Início
+      </button>
+    </div>
+  </div>
+
+  <!-- Conteúdo do imóvel -->
+  <div class="imovel-content" *ngIf="imovel && !isLoading && !errorMessage">
+    <!-- Card principal do imóvel -->
+    <div class="imovel-card-main">
+      <div class="imovel-photos-container">
+        <div class="imovel-photos-gallery">
+          <ng-container
+            *ngIf="
+              imovel.fotos && imovel.fotos.length > 0;
+              else singlePlaceholder
+            "
+          >
+            <img
+              *ngFor="let photo of imovel.fotos"
+              [src]="photo.url || 'assets/imagens/empty/placeholder-photo.png'"
+              alt="Foto do Imóvel"
+              class="imovel-photo"
+            />
+          </ng-container>
+
+          <ng-template #singlePlaceholder>
+            <img
+              src="assets/imagens/empty/placeholder-photo.png"
+              alt="Sem foto disponível"
+              class="imovel-photo placeholder-photo"
+            />
+          </ng-template>
+        </div>
+        <div class="imovel-photos-thumbnails">
+          <ng-container
+            *ngIf="
+              imovel.fotos && imovel.fotos.length > 0;
+              else thumbnailPlaceholder
+            "
+          >
+            <img
+              *ngFor="let photo of imovel.fotos"
+              [src]="photo.url || 'assets/imagens/empty/placeholder-photo.png'"
+              alt="Miniatura do Imóvel"
+              class="thumbnail-photo"
+            />
+          </ng-container>
+
+          <ng-template #thumbnailPlaceholder>
+            <img
+              src="assets/imagens/empty/placeholder-photo.png"
+              alt="Sem miniatura disponível"
+              class="thumbnail-photo placeholder-thumbnail"
+            />
+          </ng-template>
+        </div>
+      </div>
+      <div class="card-header-main">
+        <div class="imovel-info-main">
+          <h1>{{ imovel.titulo || "Imóvel sem título" }}</h1>
+          <p
+            class="tipo-badge"
+            [style]="{ 'background-color': getTagColor(imovel.tipo) }"
+          >
+            {{ imovel.tipo || "Tipo não especificado" }}
+          </p>
+        </div>
+        <div class="preco-main">
+          <span class="preco-valor">{{
+            imovel.preco | currency : "BRL" : "symbol" : "1.2-2"
+          }}</span>
+          <span class="preco-periodo">/mês</span>
+        </div>
+      </div>
+
+			<!-- Descrição -->
+      <div class="descricao-section" *ngIf="imovel.descricao">
+        <h2>Descrição</h2>
+        <div class="descricao-content">
+          <p>{{ imovel.descricao }}</p>
+        </div>
+      </div>
+
+			<!-- Características do imóvel -->
+      <div class="caracteristicas">
+        <h2>Características</h2>
+        <div class="caracteristicas-grid">
+          <div class="caracteristica-item" *ngIf="imovel.numQuartos">
+            <img src="assets/icones/quarto.svg" alt="Quartos" />
+            <div class="caracteristica-content">
+              <span class="caracteristica-numero">{{ imovel.numQuartos }}</span>
+              <span class="caracteristica-label">{{
+                imovel.numQuartos === 1 ? "Quarto" : "Quartos"
+              }}</span>
+            </div>
+          </div>
+
+          <div class="caracteristica-item" *ngIf="imovel.area">
+            <img src="assets/icones/area.svg" alt="Área" />
+            <div class="caracteristica-content">
+              <span class="caracteristica-numero">{{ imovel.area }}</span>
+              <span class="caracteristica-label">m²</span>
+            </div>
+          </div>
+
+          <div class="caracteristica-item">
+            <img src="assets/icones/mobiliado.svg" alt="Mobiliado" />
+            <div class="caracteristica-content">
+              <span
+                class="caracteristica-status"
+                [class.status-sim]="imovel.mobiliado"
+                [class.status-nao]="!imovel.mobiliado"
+              >
+                {{ imovel.mobiliado ? "Sim" : "Não" }}
+              </span>
+              <span class="caracteristica-label">Mobiliado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informações principais -->
+      <div class="informacoes-principais">
+        <div class="info-item">
+          <img src="assets/icones/inicio/localizacao.svg" alt="Localização" />
+          <div class="info-content">
+            <h3>Endereço</h3>
+            <p>{{ imovel.endereco.rua }}, {{ imovel.endereco.numero }}</p>
+            <p>
+              {{ imovel.endereco.bairro }}, {{ imovel.endereco.cidade }} -
+              {{ imovel.endereco.estado }}
+            </p>
+            <p>CEP: {{ imovel.endereco.cep }}</p>
+            <p *ngIf="imovel.endereco.complemento">
+              {{ imovel.endereco.complemento }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel de ações -->
+    <div class="acoes-panel">
+      <div class="acoes-sticky">
+        <h3>Interessado neste imóvel?</h3>
+        <p>Entre em contato com o proprietário para mais informações</p>
+
+        <button class="btn-orcamento" (click)="entrarEmContato()">
+          Solicitar Orçamento
+        </button>
+
+        <button class="btn-whatsapp" (click)="entrarEmContato()">
+          <img src="assets/icones/whatsapp.svg" alt="WhatsApp" />
+          Contato via WhatsApp
+        </button>
+
+        <div class="acoes-secundarias">
+          <button class="btn-acao-secundaria" (click)="favoritar()">
+            <img
+              [src]="
+                isFavoritado(imovelId)
+                  ? 'assets/icones/inicio/heart-solid.svg'
+                  : 'assets/icones/inicio/heart-line.svg'
+              "
+              alt="Favoritar"
+            />
+            {{
+              isFavoritado(imovelId) ? "Remover Favorito" : "Adicionar Favorito"
+            }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
