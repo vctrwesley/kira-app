@@ -10,7 +10,7 @@
   width: 100%;
   padding: 10px;
   padding-left: 20px;
-  border: 1px solid var(--lm-border);
+  border: 1px solid var(--kira-border);
   border-radius: 40px;
   font-size: 16px;
   padding-right: 40px;
@@ -20,7 +20,7 @@
 .search-button {
   position: absolute;
   right: 0;
-  background: var(--lm-border);
+  background: var(--kira-border);
   border: none;
   cursor: pointer;
   height: auto;
