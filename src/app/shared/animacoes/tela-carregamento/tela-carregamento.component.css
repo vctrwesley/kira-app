@@ -1,0 +1,33 @@
+/* carregamento */
+.overlay-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--kira-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 16;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.overlay-loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.logo-loading {
+  width: 320px;
+  margin-bottom: 20px;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.overlay-loader h2 {
+  color: var(--kira-text03);
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}

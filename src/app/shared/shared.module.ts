@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SelectPadraoComponent } from './select-padrao/select-padrao.component';
 import { SearchComponent } from './search/search.component';
+import { TelaCarregamentoComponent } from './animacoes/tela-carregamento/tela-carregamento.component';
+import { LoadingSpinnerComponent } from './animacoes/loading-spinner/loading-spinner.component';
 
 
 
@@ -11,7 +13,9 @@ import { SearchComponent } from './search/search.component';
   declarations: [
     PaginationComponent,
     SelectPadraoComponent,
-    SearchComponent
+    SearchComponent,
+    TelaCarregamentoComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +24,8 @@ import { SearchComponent } from './search/search.component';
   exports: [
     PaginationComponent,
     SelectPadraoComponent,
-    SearchComponent
+    SearchComponent,
+    TelaCarregamentoComponent
   ]
 })
 export class SharedModule { }

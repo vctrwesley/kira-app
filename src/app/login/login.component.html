@@ -1,8 +1,4 @@
-<div class="overlay-loader" [class.fade-out]="!loading">
-  <img src="assets/icones/logo-kira-branca.svg" class="logo-loading" />
-  <h2>As melhores escolhas você faz conosco</h2>
-  <!-- <div class="spinner"></div> -->
-</div>
+<app-tela-carregamento [isVisible]="loading" [duration]="2000"></app-tela-carregamento>
 
 <main [class.fade-in]="!loading" [class.invisible]="loading">
   <div class="login-container">
