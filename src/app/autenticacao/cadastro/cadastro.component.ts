@@ -59,7 +59,7 @@ export class CadastroComponent implements OnInit {
 
   onSubmit() {
     if (this.usuarioForm.valid) {
-      const { aceitarTermos, confirmPassword, ...dadosParaEnvio } =
+      const { aceitarTermos, ...dadosParaEnvio } =
         this.usuarioForm.value;
 
       console.log('Dados para envio ao backend:', dadosParaEnvio);

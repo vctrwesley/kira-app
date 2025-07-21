@@ -27,6 +27,7 @@ export class MeusImoveisComponent {
 
   public Permissao = Permissao;
   public permissaoUsuario: string = '';
+  private locadorId: number | null = null;
 
   constructor(
     private router: Router,
@@ -35,9 +36,8 @@ export class MeusImoveisComponent {
   ) {}
 
   ngOnInit(): void {
-    this.fetchImoveis();
-    this.atualizarPaginacao();
     this.carregarPermissaoUsuario();
+    this.preencherLocadorId();
   }
 
   cadastrarImovel(): void {
@@ -92,9 +92,14 @@ export class MeusImoveisComponent {
   }
 
   fetchImoveis(): void {
+    if (!this.locadorId) {
+      console.log('⏳ ID do locador não carregado ainda, aguardando...');
+      return;
+    }
+
     this.isLoading = true;
 
-    this.imovelService.getImoveis().subscribe(
+    this.imovelService.getImoveisByUsuarioId(this.locadorId).subscribe(
       (imoveis: Imovel[]) => {
         console.log('Imóveis retornados:', imoveis);
         this.imoveis = imoveis;
@@ -223,5 +228,21 @@ export class MeusImoveisComponent {
       default:
         return '/login';
     }
+  }
+
+  private preencherLocadorId(): void {
+    this.authService.obterPerfilUsuario().subscribe({
+      next: (usuario) => {
+        console.log('Perfil do usuário obtido:', usuario);
+
+        if (usuario && usuario.id) {
+          const locadorId = (this.locadorId =
+            typeof usuario.id === 'string'
+              ? parseInt(usuario.id, 10)
+              : usuario.id);
+          this.fetchImoveis();
+        }
+      },
+    });
   }
 }

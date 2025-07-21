@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Imovel } from '../../sistema/locador/models/imovel';
+import { AuthService } from '../config/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { Imovel } from '../../sistema/locador/models/imovel';
 export class ImovelService {
   apiURL: string = environment.apiURLBase + '/api/imoveis';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   cadastrarImovel(imovel: Imovel): Observable<Imovel> {
     console.log('Dados enviados para o backend:', imovel);
@@ -107,6 +108,29 @@ export class ImovelService {
       map((response) => response),
       catchError((error) => {
         let errorMessage = 'Erro ao buscar imóveis por nome.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  getImoveisByUsuarioId(usuarioId: number): Observable<Imovel[]> {
+    const url = `${this.apiURL}/usuario/${usuarioId}`;
+    console.log('🔸 URL completa enviada:', url);
+
+    return this.http.get<Imovel[]>(url).pipe(
+
+      map((response) => {
+        return response;
+      }),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar o imóvel.';
+
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {
