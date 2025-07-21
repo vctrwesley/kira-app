@@ -42,16 +42,17 @@
                     <td>
                         {{ imovel.tipo || '-' }}
                     </td>
+                    <td></td>
                     <td>
                         <div class="acoes">
                             <button class="btn-acao visualizar" (click)="visualizarImovel(imovel.id)">
-                                <img src="assets/icones/See.png" alt="Visualizar">
+                                <img src="assets/icones/visualizar.svg" alt="Visualizar">
                             </button>
                             <button class="btn-acao edit" (click)="editarImovel(imovel.id)">
-                                <img src="assets/icones/Edit.png" alt="Editar">
+                                <img src="assets/icones/editar.svg" alt="Editar">
                             </button>
                             <button class="btn-acao delete" (click)="openModalDeletar(imovel)">
-                                <img src="assets/icones/Delete.png" alt="Excluir">
+                                <img src="assets/icones/lixeira.svg" alt="Excluir">
                             </button>
                         </div>
                     </td>

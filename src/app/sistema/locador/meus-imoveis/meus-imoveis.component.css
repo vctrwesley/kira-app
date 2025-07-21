@@ -133,7 +133,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-  background-color: #eaf1e5;
+  background-color: #eee5f1;
 }
 
 .perfil {
@@ -191,6 +191,7 @@ tr:hover {
   justify-content: center;
   width: 32px;
   height: 32px;
+  padding: 8px;
 }
 
 .btn-acao img {
