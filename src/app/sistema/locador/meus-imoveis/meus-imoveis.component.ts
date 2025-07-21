@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/config/auth.service';
 import { Permissao } from '../../../login/models/permissao';
@@ -6,13 +6,16 @@ import { Imovel } from '../models/imovel';
 import { Endereco } from '../models/endereco';
 import { ImovelService } from '../../../services/locador/imovel.service';
 import { ModalDeleteService } from '../../../services/modals/modal-delete.service';
+import { FeedbackComponent } from '../../../shared/feedback/feedback.component';
 
 @Component({
   selector: 'app-meus-imoveis',
   templateUrl: './meus-imoveis.component.html',
   styleUrl: './meus-imoveis.component.css',
 })
-export class MeusImoveisComponent {
+export class MeusImoveisComponent implements OnInit, AfterViewInit {
+  @ViewChild(FeedbackComponent) feedbackComponent!: FeedbackComponent;
+
   termoBusca: string = '';
   mensagemBusca: string = '';
   isLoading = false;
@@ -40,6 +43,12 @@ export class MeusImoveisComponent {
   ngOnInit(): void {
     this.carregarPermissaoUsuario();
     this.preencherLocadorId();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.exibirMensagemDeSucesso();
+    }, 0);
   }
 
   cadastrarImovel(): void {
@@ -132,7 +141,7 @@ export class MeusImoveisComponent {
       () => {
         console.log('Imóvel deletado com sucesso!');
         this.fetchImoveis();
-        this.showMessage(
+        this.showFeedback(
           'success',
           `Imóvel "${imovelRemovido?.titulo || ''} - ${
             imovelRemovido?.endereco?.cidade || '-'
@@ -140,7 +149,7 @@ export class MeusImoveisComponent {
         );
       },
       (error) => {
-        console.error('Erro ao deletar o imóvel:', error);
+        this.showFeedback('error', 'Erro ao deletar o imóvel');
       }
     );
   }
@@ -180,19 +189,26 @@ export class MeusImoveisComponent {
     );
   }
 
-  // exibirMensagemDeSucesso(): void {
-  //   const state = window.history.state as { successMessage?: string };
-  //   if (state?.successMessage) {
-  //     this.successMessage = state.successMessage;
-  //     setTimeout(() => (this.successMessage = ''), 3000);
-  //     window.history.replaceState({}, document.title);
-  //   }
-  // }
+  private exibirMensagemDeSucesso(): void {
+    const state = window.history.state as {
+      successMessage?: string;
+      errorMessage?: string;
+    };
 
-  showMessage(type: 'success' | 'error', msg: string) {
-    this.clearMessage();
-    if (type === 'success') this.successMessage = msg;
-    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+    if (state?.successMessage) {
+      this.showFeedback('success', state.successMessage);
+      window.history.replaceState({}, document.title);
+    }
+
+    if (state?.errorMessage) {
+      this.showFeedback('error', state.errorMessage);
+      window.history.replaceState({}, document.title);
+    }
+  }
+
+  private showFeedback(type: 'success' | 'error', message: string): void {
+    const title = type === 'success' ? 'Sucesso' : 'Erro';
+    this.feedbackComponent?.show(type, title, message);
   }
 
   clearMessage() {

@@ -8,6 +8,7 @@ import { TelaCarregamentoComponent } from './animacoes/tela-carregamento/tela-ca
 import { LoadingSpinnerComponent } from './animacoes/loading-spinner/loading-spinner.component';
 import { ModalDeleteComponent } from './modals/modal-delete/modal-delete.component';
 import { ModalGeralComponent } from './modals/modal-geral/modal-geral.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 
@@ -19,7 +20,8 @@ import { ModalGeralComponent } from './modals/modal-geral/modal-geral.component'
     TelaCarregamentoComponent,
     LoadingSpinnerComponent,
     ModalDeleteComponent,
-    ModalGeralComponent
+    ModalGeralComponent,
+    FeedbackComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { ModalGeralComponent } from './modals/modal-geral/modal-geral.component'
     LoadingSpinnerComponent,
     ModalDeleteComponent,
     ModalGeralComponent,
+    FeedbackComponent
   ]
 })
 export class SharedModule { }
