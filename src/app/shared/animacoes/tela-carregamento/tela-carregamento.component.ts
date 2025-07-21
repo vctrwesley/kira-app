@@ -11,7 +11,6 @@ export class TelaCarregamentoComponent implements OnInit {
   @Input() duration: number = 2000;
 
   currentMessage: string = '';
-  private messageIntervalId: any;
 
   constructor(private loadingMessagesService: LoadingMessagesService) {}
 
