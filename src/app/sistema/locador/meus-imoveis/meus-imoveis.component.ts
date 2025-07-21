@@ -5,6 +5,7 @@ import { Permissao } from '../../../login/models/permissao';
 import { Imovel } from '../models/imovel';
 import { Endereco } from '../models/endereco';
 import { ImovelService } from '../../../services/locador/imovel.service';
+import { ModalDeleteService } from '../../../services/modals/modal-delete.service';
 
 @Component({
   selector: 'app-meus-imoveis',
@@ -32,7 +33,8 @@ export class MeusImoveisComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private imovelService: ImovelService
+    private imovelService: ImovelService,
+    private modalDeleteService: ModalDeleteService
   ) {}
 
   ngOnInit(): void {
@@ -161,21 +163,21 @@ export class MeusImoveisComponent {
   }
 
   openModalDeletar(imovel: any): void {
-    //   this.selectedImovel = imovel;
-    //   this.modalDeleteService.openModal(
-    //     {
-    //       title: 'Remoção de Imóvel',
-    //       description: `Tem certeza que deseja excluir o imóvel <strong>${
-    //         imovel.titulo
-    //       } - ${imovel.endereco?.cidade || '-'}</strong>?`,
-    //       item: imovel,
-    //       deletarTextoBotao: 'Remover',
-    //       size: 'md',
-    //     },
-    //     () => {
-    //       this.deleteImovel(imovel.id);
-    //     }
-    //   );
+    this.selectedImovel = imovel;
+    this.modalDeleteService.openModal(
+      {
+        title: 'Remoção de Imóvel',
+        description: `Tem certeza que deseja excluir o imóvel <strong>${
+          imovel.titulo
+        } - ${imovel.endereco?.cidade || '-'}</strong>?`,
+        item: imovel,
+        deletarTextoBotao: 'Remover',
+        size: 'md',
+      },
+      () => {
+        this.deleteImovel(imovel.id);
+      }
+    );
   }
 
   // exibirMensagemDeSucesso(): void {
