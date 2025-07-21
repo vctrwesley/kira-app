@@ -219,6 +219,8 @@ export class CadastroDeImoveisComponent implements OnInit {
               this.selectedCidade = cidade;
               this.imovelForm.get('endereco.cidade')?.setValue(cidade);
             });
+
+            this.selectedTipo = imovel.tipo;
         },
         (error) => {
           console.error('Erro ao carregar os dados do imóvel:', error);
