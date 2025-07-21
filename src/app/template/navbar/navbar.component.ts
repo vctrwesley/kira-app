@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/config/auth.service';
 import { Usuario } from '../../login/models/usuario';
+import { ModalConfirmacaoService } from '../../services/modals/modal-confirmacao.service';
 
 @Component({
   selector: 'app-navbar',
@@ -38,7 +39,8 @@ export class NavbarComponent {
   constructor(
     private router: Router,
     private renderer: Renderer2,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalConfirmacaoService: ModalConfirmacaoService
   ) {}
 
   ngOnInit(): void {
@@ -139,5 +141,19 @@ export class NavbarComponent {
         console.error('Erro ao buscar perfil do usuário', err);
       },
     });
+  }
+
+  openModalLogout(): void {
+    this.modalConfirmacaoService.openModal(
+      {
+        title: 'Sair da Plataforma',
+        description: `Tem certeza que deseja sair da plataforma <strong>Kira</strong>? Você será redirecionado para a tela de login.`,
+        confirmTextoBotao: 'Sair',
+        size: 'md',
+      },
+      () => {
+        this.logout();
+      }
+    );
   }
 }
