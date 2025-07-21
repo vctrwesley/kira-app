@@ -133,11 +133,11 @@ export class VisualizarAnuncioComponent implements OnInit {
 
   getRandomColor(seed?: string): string {
     const colors = [
-      '#FFB3BA', // Rosa pastel
-      '#FFDFBA', // Laranja pastel
-      '#BAFFC9', // Verde pastel
-      '#BAE1FF', // Azul pastel
-      '#D5BAFF', // Roxo pastel
+      '#FFB3BA',
+      '#FFDFBA',
+      '#BAFFC9',
+      '#BAE1FF',
+      '#D5BAFF',
     ];
     const index = seed && seed.length > 0 ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
