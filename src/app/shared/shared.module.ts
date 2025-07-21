@@ -6,6 +6,8 @@ import { SelectPadraoComponent } from './select-padrao/select-padrao.component';
 import { SearchComponent } from './search/search.component';
 import { TelaCarregamentoComponent } from './animacoes/tela-carregamento/tela-carregamento.component';
 import { LoadingSpinnerComponent } from './animacoes/loading-spinner/loading-spinner.component';
+import { ModalDeleteComponent } from './modals/modal-delete/modal-delete.component';
+import { ModalGeralComponent } from './modals/modal-geral/modal-geral.component';
 
 
 
@@ -15,7 +17,9 @@ import { LoadingSpinnerComponent } from './animacoes/loading-spinner/loading-spi
     SelectPadraoComponent,
     SearchComponent,
     TelaCarregamentoComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    ModalDeleteComponent,
+    ModalGeralComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +29,10 @@ import { LoadingSpinnerComponent } from './animacoes/loading-spinner/loading-spi
     PaginationComponent,
     SelectPadraoComponent,
     SearchComponent,
-    TelaCarregamentoComponent
+    TelaCarregamentoComponent,
+    LoadingSpinnerComponent,
+    ModalDeleteComponent,
+    ModalGeralComponent,
   ]
 })
 export class SharedModule { }
