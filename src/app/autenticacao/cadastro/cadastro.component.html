@@ -1,1 +1,165 @@
-<p>cadastro works!</p>
+<div class="overlay-loader" [class.fade-out]="!loading">
+  <img src="assets/icones/logo-kira-branca.svg" class="logo-loading" />
+  <h2>As melhores escolhas você faz conosco</h2>
+  <!-- <div class="spinner"></div> -->
+</div>
+
+<main [class.fade-in]="!loading" [class.invisible]="loading">
+  <div class="logo-top-left">
+    <img src="assets/icones/logo-kira-roxa.svg" alt="Kira Logo" class="logo-kira-top" />
+  </div>
+
+  <div class="login-container">
+    <div class="login-form">
+      <h2>Criar uma conta</h2>
+      <div class="body-login">
+
+        <form class="container-input" [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+          <div class="feedback-container">
+            <div class="alert-success" *ngIf="mensagemSucesso">
+              {{ mensagemSucesso }}
+            </div>
+
+            <div class="alert-danger" *ngFor="let erro of errors">
+                {{ erro }}
+            </div>
+          </div>
+
+          <div class="form-group container-input">
+            <label class="small mb-1">Nome</label>
+            <div class="input-group">
+              <input 
+                type="text" 
+                name="nome" 
+                autocomplete="off" 
+                class="form-control input-login"
+                placeholder="Digite seu nome completo" 
+                formControlName="nome"
+                required 
+              />
+            </div>
+          </div>
+
+          <div class="form-group container-input">
+            <label class="small mb-1">Data de nascimento</label>
+            <div class="input-group">
+              <input 
+                type="date" 
+                name="dataNascimento" 
+                class="form-control input-login"
+                formControlName="dataNascimento"
+                required 
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+                <label>Tipo de usuário</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="locatario" name="permissao" [value]="LOCATARIO" formControlName="permissao" checked>
+                        <label for="locatario">Locatário</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="locador" name="permissao" [value]="LOCADOR" formControlName="permissao">
+                        <label for="locador">Locador</label>
+                    </div>
+                </div>
+          </div>
+
+          <div class="form-group container-input">
+            <label class="small mb-1">E-mail</label>
+            <div class="input-group">
+              <input 
+                type="email" 
+                name="email" 
+                autocomplete="off" 
+                class="form-control input-login"
+                placeholder="Informe o seu e-mail" 
+                formControlName="email"
+                required 
+              />
+            </div>
+          </div>
+
+          <div class="form-group container-input">
+            <label class="small mb-1">CPF</label>
+            <div class="input-group">
+              <input 
+                type="text" 
+                name="cpf" 
+                class="form-control input-login"
+                placeholder="Digite seu CPF" 
+                formControlName="documento"
+                required 
+              />
+            </div>
+          </div>
+
+          <div class="form-group container-input">
+            <label class="small mb-1">Senha</label>
+            <div class="input-group">
+              <input 
+              [type]="passwordVisible['password'] ? 'text' : 'password'"
+                name="password" 
+                class="form-control py-2 responsive-input"
+                placeholder="Digite uma senha" 
+                formControlName="password"
+                required 
+              />
+              <div class="input-icon" type="button" (click)="togglePasswordVisibility('password')">
+                <img *ngIf="!passwordVisible['password']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
+                <img *ngIf="passwordVisible['password']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group container-input">
+            <label class="small mb-1">Confirmar senha</label>
+            <div class="input-group">
+              <input 
+              [type]="passwordVisible['confirmPassword'] ? 'text' : 'password'"
+                name="confirmPassword" 
+                class="form-control py-2 responsive-input"
+                placeholder="Informe a sua senha" 
+                formControlName="confirmPassword"
+                required 
+              />
+              <div class="input-icon" type="button" (click)="togglePasswordVisibility('confirmPassword')">
+                <img *ngIf="!passwordVisible['confirmPassword']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
+                <img *ngIf="passwordVisible['confirmPassword']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="termos-condicoes">
+            <div class="checkbox-group">
+              <input 
+                type="checkbox" 
+                id="aceitarTermos" 
+                formControlName="aceitarTermos"
+                required
+              >
+              <label for="aceitarTermos">
+                Eu aceito os <a href="/termos-condicoes" target="_blank">Termos e Condições</a> 
+                e as <a href="/politica-privacidade" target="_blank">Políticas de Privacidade</a>
+              </label>
+            </div>
+          </div>
+
+            <button class="btn-login" type="submit" [disabled]="usuarioForm.invalid">Cadastrar</button>
+        </form>
+      </div>
+
+      <div class="footer-login">
+        <div class="divider-container">
+          <hr>
+          <span class="divider-text">ou</span>
+          <hr>
+        </div>
+
+        <p>Já possui uma conta? <a routerLink="/login">Entrar</a></p>
+      </div>
+    </div>
+  </div>
+</main>

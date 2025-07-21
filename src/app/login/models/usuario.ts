@@ -9,4 +9,6 @@ export class Usuario {
   confirmPassword!: string;
   email!: string;
   darkMode!: boolean;
+  documento!: string;
+  dataNascimento?: Date;
 }

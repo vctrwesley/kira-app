@@ -10,7 +10,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { SistemaModule } from './sistema/sistema.module';
 import { SharedModule } from './shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/config/auth.service';
 import { TokenInterceptor } from './services/config/token.interceptor';
@@ -18,6 +18,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { EsqueciSenhaComponent } from './autenticacao/esqueci-senha/esqueci-senha.component';
 import { ResetPasswordComponent } from './autenticacao/reset-password/reset-password.component';
+
 
 @NgModule({
   declarations: [AppComponent, LayoutComponent, LoginComponent, CadastroComponent, EsqueciSenhaComponent, ResetPasswordComponent],
@@ -29,6 +30,7 @@ import { ResetPasswordComponent } from './autenticacao/reset-password/reset-pass
     SistemaModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     AuthService,

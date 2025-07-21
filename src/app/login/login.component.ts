@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
           permissao:
             response.authorities.length > 0 ? response.authorities[0] : null,
           darkMode: response.darkMode || false,
+          documento: response.documento || '',
         };
         localStorage.setItem('usuario', JSON.stringify(usuario));
 
