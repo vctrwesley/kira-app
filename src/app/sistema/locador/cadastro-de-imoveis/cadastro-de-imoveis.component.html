@@ -64,8 +64,13 @@
                     </div>
                 <div class="form-group">
                     <label for="numQuartos">Número de Quartos<span *ngIf="isRequired('endereco.numQuartos')" class="required-asterisk">*</span></label>
-                    <input type="number" id="numQuartos" name="numQuartos" formControlName="numQuartos" class="form-control" placeholder="Digite o número de quartos" required maxlength="250">
+                    <input type="number" id="numQuartos" name="numQuartos" formControlName="numQuartos" class="form-control" placeholder="Digite o número de quartos" maxlength="250">
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="area">Área (m²)<span *ngIf="isRequired('endereco.area')" class="required-asterisk">*</span></label>
+                <input type="number" id="area" name="area" formControlName="area" class="form-control" placeholder="Digite a área do imóvel" maxlength="250">
             </div>
 
             <div class="divisao">

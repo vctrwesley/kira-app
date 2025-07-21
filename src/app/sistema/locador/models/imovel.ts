@@ -11,4 +11,5 @@ export class Imovel {
   numQuartos!: number;
   preco!: number;
   tipo!: TipoImovel;
+  area!: number;
 }

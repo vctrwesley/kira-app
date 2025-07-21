@@ -9,7 +9,7 @@ import { Imovel } from '../../sistema/locador/models/imovel';
   providedIn: 'root',
 })
 export class ImovelService {
-  apiURL: string = environment.apiURLBase + '/api/imovel';
+  apiURL: string = environment.apiURLBase + '/api/imoveis';
 
   constructor(private http: HttpClient) {}
 

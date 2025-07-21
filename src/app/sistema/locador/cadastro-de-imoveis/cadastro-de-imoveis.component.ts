@@ -16,6 +16,7 @@ import {
 } from '../../../services/locador/endereco.service';
 import { TipoImovel } from '../enums/tipo-imovel';
 import { tipoImovelDescricao } from '../enums/tipo-imovel-descricao';
+import { AuthService } from '../../../services/config/auth.service';
 
 @Component({
   selector: 'app-cadastro-de-imoveis',
@@ -36,7 +37,8 @@ export class CadastroDeImoveisComponent implements OnInit {
   selectedCidade: string = '';
   tipos = Object.keys(TipoImovel).map((key) => ({
     value: TipoImovel[key as keyof typeof TipoImovel],
-    description: tipoImovelDescricao[TipoImovel[key as keyof typeof TipoImovel]],
+    description:
+      tipoImovelDescricao[TipoImovel[key as keyof typeof TipoImovel]],
   }));
   selectedTipo: string = '';
 
@@ -46,11 +48,13 @@ export class CadastroDeImoveisComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private imovelService: ImovelService,
-    private enderecoService: EnderecoService
+    private enderecoService: EnderecoService,
+    private authService: AuthService
   ) {
     this.imovelForm = this.fb.group({
       titulo: ['', Validators.required],
       endereco: this.fb.group({
+        pais: ['Brasil'],
         estado: ['', Validators.required],
         cidade: ['', Validators.required],
         cep: ['', Validators.required],
@@ -61,17 +65,19 @@ export class CadastroDeImoveisComponent implements OnInit {
         complemento: [''],
       }),
       descricao: [''],
-      locadorId: [null, Validators.required],
+      locadorId: [null],
       mobiliado: [true, Validators.required],
       numQuartos: [0],
       preco: [0, [Validators.required, Validators.min(0)]],
       tipo: ['', Validators.required],
+      area: [0, [Validators.min(0)]],
     });
   }
 
   ngOnInit(): void {
     this.verificarModoEdicao();
     this.carregarEstadosECidades();
+    this.preencherLocadorId();
   }
 
   goBack(): void {
@@ -123,6 +129,13 @@ export class CadastroDeImoveisComponent implements OnInit {
       ?.value as Endereco;
     console.log('Endereço:', endereco);
 
+    const currentLocadorId = this.imovelForm.get('locadorId')?.value;
+    if (!currentLocadorId) {
+      this.errorMessage =
+        'Erro: usuário não identificado. Recarregue a página.';
+      return;
+    }
+
     const imovel: Imovel = {
       ...this.imovelForm.value,
       endereco: endereco,
@@ -131,6 +144,9 @@ export class CadastroDeImoveisComponent implements OnInit {
     this.isLoading = true;
     this.successMessage = null;
     this.errorMessage = null;
+
+    console.log('Dados do imóvel:', imovel);
+    console.log('Dados enviados para o backend:', imovel);
 
     if (this.isEditMode && this.lojaId) {
       this.imovelService.atualizarImovel(this.lojaId, imovel).subscribe(
@@ -224,4 +240,31 @@ export class CadastroDeImoveisComponent implements OnInit {
   }
 
   private tratarRetornoDTO(imovel: Imovel): void {}
+
+  private preencherLocadorId(): void {
+    this.authService.obterPerfilUsuario().subscribe({
+      next: (usuario) => {
+        console.log('Perfil do usuário obtido:', usuario);
+
+        if (usuario && usuario.id) {
+          const locadorId =
+            typeof usuario.id === 'string'
+              ? parseInt(usuario.id, 10)
+              : usuario.id;
+
+          this.imovelForm.get('locadorId')?.setValue(locadorId);
+          console.log('LocadorId preenchido via API:', locadorId);
+        } else {
+          console.error('Usuario obtido mas sem ID');
+          this.errorMessage =
+            'Erro: não foi possível identificar o usuário. Faça login novamente.';
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao obter perfil do usuário via API:', error);
+        this.errorMessage =
+          'Erro: falha na autenticação. Faça login novamente.';
+      },
+    });
+  }
 }
