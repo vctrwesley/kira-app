@@ -12,4 +12,5 @@ export class Imovel {
   preco!: number;
   tipo!: TipoImovel;
   area!: number;
+  fotos!: { url: string }[];
 }

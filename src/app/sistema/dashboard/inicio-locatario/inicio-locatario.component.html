@@ -1,1 +1,94 @@
-<p>inicio-locatario works!</p>
+<div class="main-container">
+    <div class="banner">
+        <h1>Imóveis Disponíveis</h1>
+        <p>Encontre o imóvel ideal para você!</p>
+    </div>
+  
+    <div class="breadcrumb-container">
+        <div class="actions">
+            <div class="search-container">
+                <app-search (searchChange)="onSearch($event)"></app-search>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="imoveis-grid" *ngIf="imoveisPaginados.length > 0">
+        <div class="imovel-card" *ngFor="let imovel of imoveisPaginados">
+            <div class="imovel-photo-container">
+                <img
+                    [src]="imovel.fotos && imovel.fotos.length > 0 ? imovel.fotos[0].url : 'assets/imagens/empty/placeholder-photo.png'"
+                    alt="Foto do Imóvel"
+                    class="imovel-photo"
+                />
+            </div>
+            <div class="card-header">
+                <div class="imovel-info">
+                    <h3 (click)="visualizarImovel(imovel.id)">{{ imovel.titulo || '-' }}</h3>
+                    <p class="tipo" [style]="{'background-color': getTagColor(imovel.tipo)}">{{ imovel.tipo || '-' }}</p>
+                </div>
+                <div class="preco">
+                    <!-- nota do imovel -->
+                    <span>{{ imovel.preco | currency:'BRL':'symbol':'1.2-2' }}</span>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="endereco">
+                    <img src="assets/icones/inicio/localizacao.svg" alt="Localização">
+                    <span>{{ imovel.endereco.rua }}, {{ imovel.endereco.numero }} - {{ imovel.endereco.bairro }}, {{ imovel.endereco.cidade }} - {{ imovel.endereco.estado }}</span>
+                </div>
+                
+                <div class="detalhes">
+                    <div class="detalhe-item" *ngIf="imovel.numQuartos">
+                        <!-- <img src="assets/icones/quartos.svg" alt="Quartos"> -->
+                        <span>{{ imovel.numQuartos }} quartos</span>
+                    </div>
+                    <div class="detalhe-item" *ngIf="imovel.area">
+                        <!-- <img src="assets/icones/area.svg" alt="Área"> -->
+                        <span>{{ imovel.area }}m²</span>
+                    </div>
+                    <div *ngIf="imovel.mobiliado" class="detalhe-item">
+                        <!-- <img src="assets/icones/mobiliado.svg" alt="Mobiliado"> -->
+                        <span>Mobiliado</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <button class="btn-visualizar" (click)="visualizarImovel(imovel.id)">
+                    Ver Detalhes
+                </button>
+                <button class="btn-favoritar" (click)="favoritar(imovel.id)">
+                    <img [src]="isFavoritado(imovel.id) ? 'assets/icones/inicio/heart-solid.svg' : 'assets/icones/inicio/heart-line.svg'" alt="Favoritar">
+                </button>
+            </div>
+        </div>
+    </div>
+ 
+    <div *ngIf="imoveisPaginados.length === 0 && !isLoading">
+        <ng-container *ngIf="mensagemBusca; else semImoveis">
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+        </ng-container>
+        <ng-template #semImoveis>
+            <div class="no-data-message">
+                <img src="assets/imagens/empty/no-data.svg" alt="Sem dados">
+                <p>Não há imóveis disponíveis no momento.</p>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="pagination" *ngIf="imoveisPaginados.length > 0">
+        <app-pagination
+            [paginaAtual]="paginaAtual"
+            [totalItens]="totalItens"
+            [itensPorPagina]="itensPorPagina"
+            (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div>  
+</div>
