@@ -1,0 +1,284 @@
+.main-container {
+  margin: 100px 40px 24px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px 64px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.banner {
+  background-image: url("/assets/imagens/banners/imoveis-disponiveis.png");
+  background-size: cover;
+  background-position: center;
+  padding: 32px;
+  color: #ffffff;
+  border-radius: 24px;
+  background-color: var(--kira-primary);
+}
+
+.banner h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.banner p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.breadcrumb-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 0;
+  padding-top: 40px;
+  align-items: center;
+}
+
+.breadcrumb {
+  font-size: 1rem;
+  color: #666261;
+  margin: 0;
+}
+
+.breadcrumb a {
+  color: #666;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-highlight {
+  margin-left: 5px;
+  color: var(--kira-primary);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background-color: #e0e0e0;
+  margin-top: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background-color: #007bff;
+  animation: progress-animation 2s infinite linear;
+}
+
+@keyframes progress-animation {
+  0% { width: 0; }
+  50% { width: 80%; }
+  100% { width: 0; }
+}
+
+.favoritos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.favorito-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.favorito-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.imovel-photo-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.imovel-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.imovel-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+}
+
+.imovel-info h3:hover {
+  color: var(--kira-primary);
+}
+
+.tipo {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.preco {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--kira-primary);
+}
+
+.card-body {
+  padding: 16px;
+}
+
+.endereco {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.endereco img {
+  width: 16px;
+  height: 16px;
+}
+
+.detalhes {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.detalhe-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btn-visualizar {
+  background: var(--kira-primary);
+  color: #ffffff;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-visualizar:hover {
+  background: #0056b3;
+}
+
+.btn-remover-favorito {
+  background: #ffffff;
+  border: 1px solid #e91e63;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-remover-favorito:hover {
+  background: #ffebee;
+}
+
+.btn-remover-favorito img {
+  width: 20px;
+  height: 20px;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.no-data-message img {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 16px;
+}
+
+.no-data-message p {
+  font-size: 1.125rem;
+  margin-bottom: 24px;
+}
+
+.btn-buscar {
+  background: var(--kira-primary);
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-buscar:hover {
+  background: #0056b3;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 20px;
+  }
+  
+  .favoritos-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .banner h1 {
+    font-size: 2rem;
+  }
+  
+  .breadcrumb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}

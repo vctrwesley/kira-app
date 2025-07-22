@@ -170,8 +170,9 @@
 
 .imovel-photos-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   gap: 16px;
+  margin-bottom: 16px;
 }
 
 .imovel-photos-gallery {

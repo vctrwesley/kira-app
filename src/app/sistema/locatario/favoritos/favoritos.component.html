@@ -1,1 +1,81 @@
-<p>favoritos works!</p>
+<div class="main-container">
+    <div class="banner">
+        <h1>Meus Favoritos</h1>
+        <p>Seus imóveis favoritos salvos para consulta posterior.</p>
+    </div>
+  
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a routerLink="/usuario/inicio">Início &gt; </a> 
+            <span class="breadcrumb-highlight"> Favoritos</span>
+        </div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="favoritos-grid" *ngIf="favoritosPaginados.length > 0">
+        <div class="favorito-card" *ngFor="let favorito of favoritosPaginados">
+            <div class="imovel-photo-container">
+                <img
+                    [src]="favorito.imovel.fotos && favorito.imovel.fotos.length > 0 ? favorito.imovel.fotos[0].url : 'assets/imagens/empty/placeholder-photo.png'"
+                    alt="Foto do Imóvel"
+                    class="imovel-photo"
+                />
+            </div>
+            <div class="card-header">
+                <div class="imovel-info">
+                    <h3 (click)="visualizarImovel(favorito.imovel.id)">{{ favorito.imovel.titulo || '-' }}</h3>
+                    <p class="tipo" [style]="{'background-color': getTagColor(favorito.imovel.tipo)}">{{ favorito.imovel.tipo || '-' }}</p>
+                </div>
+                <div class="preco">
+                    <span>{{ favorito.imovel.preco | currency:'BRL':'symbol':'1.2-2' }}</span>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="endereco">
+                    <img src="assets/icones/inicio/localizacao.svg" alt="Localização">
+                    <span>{{ favorito.imovel.endereco.rua }}, {{ favorito.imovel.endereco.numero }} - {{ favorito.imovel.endereco.bairro }}, {{ favorito.imovel.endereco.cidade }} - {{ favorito.imovel.endereco.estado }}</span>
+                </div>
+                
+                <div class="detalhes">
+                    <div class="detalhe-item" *ngIf="favorito.imovel.numQuartos">
+                        <span>{{ favorito.imovel.numQuartos }} quartos</span>
+                    </div>
+                    <div class="detalhe-item" *ngIf="favorito.imovel.area">
+                        <span>{{ favorito.imovel.area }}m²</span>
+                    </div>
+                    <div *ngIf="favorito.imovel.mobiliado" class="detalhe-item">
+                        <span>Mobiliado</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <button class="btn-visualizar" (click)="visualizarImovel(favorito.imovel.id)">
+                    Ver Detalhes
+                </button>
+                <button class="btn-remover-favorito" (click)="removerFavorito(favorito)">
+                    <img src="assets/icones/inicio/heart-solid.svg" alt="Remover dos Favoritos">
+                </button>
+            </div>
+        </div>
+    </div>
+ 
+    <div *ngIf="favoritosPaginados.length === 0 && !isLoading" class="no-data-message">
+        <img src="assets/imagens/empty/no-data.svg" alt="Sem favoritos">
+        <p>Você ainda não possui imóveis favoritos.</p>
+        <button class="btn-buscar" routerLink="/usuario/inicio">Buscar Imóveis</button>
+    </div>
+
+    <div class="pagination" *ngIf="favoritosPaginados.length > 0">
+        <app-pagination
+            [paginaAtual]="paginaAtual"
+            [totalItens]="totalItens"
+            [itensPorPagina]="itensPorPagina"
+            (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div>  
+</div>

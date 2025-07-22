@@ -75,6 +75,9 @@
 }
 
 .imovel-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 16px;
@@ -130,6 +133,10 @@
 	font-size: 18px;
 	font-weight: 600;
 	color: #1a1918;
+  width: 260px;
+  white-space: calc(-webkit-min-content);
+  text-overflow: ellipsis;
+  overflow: hidden;
 	cursor: pointer;
 }
 
