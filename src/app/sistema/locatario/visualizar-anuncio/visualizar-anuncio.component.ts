@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Imovel } from '../../locador/models/imovel';
 import { ImovelService } from '../../../services/locador/imovel.service';
+import { FavoritoService, FavoritoResponse } from '../../../services/locatario/favorito.service';
 
 @Component({
   selector: 'app-visualizar-anuncio',
@@ -14,7 +15,7 @@ export class VisualizarAnuncioComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
   imovelId: number = 0;
-  favoritos: number[] = [];
+  favoritos: Map<number, number> = new Map();
   
   private readonly FAVORITOS_STORAGE_KEY = 'kira-favoritos';
 
@@ -22,7 +23,8 @@ export class VisualizarAnuncioComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private imovelService: ImovelService
+    private imovelService: ImovelService,
+    private favoritoService: FavoritoService
   ) {}
 
   ngOnInit(): void {
@@ -77,45 +79,50 @@ export class VisualizarAnuncioComponent implements OnInit {
     }
   }
 
-  private adicionarFavorito(id: number): void {
-    if (!this.favoritos.includes(id)) {
-      this.favoritos.push(id);
-      this.salvarFavoritos();
-      console.log(`Imóvel ${id} adicionado aos favoritos`);
-    }
+  private adicionarFavorito(imovelId: number): void {
+    this.favoritoService.adicionarFavorito(imovelId).subscribe({
+      next: () => {
+        // console.log(`Imóvel ${imovelId} adicionado aos favoritos`);
+        this.carregarFavoritos();
+      },
+      error: (error) => {
+        console.error('Erro ao adicionar favorito:', error);
+      }
+    });
   }
 
-  private removerFavorito(id: number): void {
-    const index = this.favoritos.indexOf(id);
-    if (index > -1) {
-      this.favoritos.splice(index, 1);
-      this.salvarFavoritos();
-      console.log(`Imóvel ${id} removido dos favoritos`);
-    }
-  }
-
-  private salvarFavoritos(): void {
-    try {
-      localStorage.setItem(this.FAVORITOS_STORAGE_KEY, JSON.stringify(this.favoritos));
-    } catch (error) {
-      console.error('Erro ao salvar favoritos no localStorage:', error);
+  private removerFavorito(imovelId: number): void {
+    const favoritoId = this.favoritos.get(imovelId);
+    if (favoritoId) {
+      this.favoritoService.removerFavorito(favoritoId).subscribe({
+        next: () => {
+          // console.log(`Imóvel ${imovelId} removido dos favoritos`);
+          this.favoritos.delete(imovelId);
+        },
+        error: (error) => {
+          console.error('Erro ao remover favorito:', error);
+        }
+      });
     }
   }
 
   private carregarFavoritos(): void {
-    try {
-      const favoritosString = localStorage.getItem(this.FAVORITOS_STORAGE_KEY);
-      if (favoritosString) {
-        this.favoritos = JSON.parse(favoritosString);
+    this.favoritoService.listarFavoritos().subscribe({
+      next: (favoritos: FavoritoResponse[]) => {
+        this.favoritos.clear();
+        favoritos.forEach(favorito => {
+          this.favoritos.set(favorito.imovel.id, favorito.id);
+        });
+      },
+      error: (error) => {
+        console.error('Erro ao carregar favoritos:', error);
+        this.favoritos.clear();
       }
-    } catch (error) {
-      console.error('Erro ao carregar favoritos do localStorage:', error);
-      this.favoritos = [];
-    }
+    });
   }
 
   isFavoritado(id: number): boolean {
-    return this.favoritos.includes(id);
+    return this.favoritos.has(id);
   }
 
   getInitial(name?: string): string {
