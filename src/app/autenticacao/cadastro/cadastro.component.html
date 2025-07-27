@@ -85,8 +85,10 @@
                 type="text" 
                 name="cpf" 
                 class="form-control input-login"
-                placeholder="Digite seu CPF" 
+                placeholder="000.000.000-00"
                 formControlName="documento"
+                mask="000.000.000-00" 
+                [dropSpecialCharacters]="true"
                 required 
               />
             </div>

@@ -18,10 +18,17 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { EsqueciSenhaComponent } from './autenticacao/esqueci-senha/esqueci-senha.component';
 import { ResetPasswordComponent } from './autenticacao/reset-password/reset-password.component';
-
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent, LoginComponent, CadastroComponent, EsqueciSenhaComponent, ResetPasswordComponent],
+  declarations: [
+    AppComponent,
+    LayoutComponent,
+    LoginComponent,
+    CadastroComponent,
+    EsqueciSenhaComponent,
+    ResetPasswordComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,6 +38,7 @@ import { ResetPasswordComponent } from './autenticacao/reset-password/reset-pass
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     AuthService,
