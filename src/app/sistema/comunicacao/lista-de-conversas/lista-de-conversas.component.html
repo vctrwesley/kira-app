@@ -1,1 +1,77 @@
-<p>lista-de-conversas works!</p>
+<div class="main-container">
+    <div class="banner">
+        <h1>Conversas</h1>
+        <p>Um espaço onde você pode administrar todos os seus chats.</p>
+    </div>
+  
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight">Conversas</span>
+        </div>
+        <div class="actions">
+            <div class="search-container">
+                <app-search (searchChange)="onSearch($event)"></app-search>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="lista-conversas">
+        <div
+            class="conversa-item"
+            *ngFor="let conversa of conversas"
+            [class.selecionada]="conversaSelecionada?.id === conversa.id"
+            (click)="selecionarConversa(conversa)">
+            <div class="avatar">
+                <img *ngIf="conversa.avatarUrl; else semAvatar"
+                    [src]="conversa.avatarUrl"
+                    alt="avatar" />
+                <ng-template #semAvatar>
+                    <div class="avatar-inicial"
+                        [style.background]="getRandomColor(conversa.titulo)">
+                    {{ getInitial(conversa.titulo) }}
+                    </div>
+                </ng-template>
+            </div>
+            <div class="conversa-info">
+                <div class="conversa-titulo">{{ conversa.titulo }}</div>
+                <div class="conversa-ultima-msg">{{ conversa.ultimaMensagem }}</div>
+            </div>
+            <div class="conversa-status">
+                <ng-container *ngIf="conversa.badge && conversa.badge > 0; else soData">
+                    <span class="badge">{{ conversa.badge }}</span>
+                    <span class="conversa-data">
+                    {{ conversa.dataUltimaMensagem | date:'HH:mm' }}
+                    </span>
+                </ng-container>
+                <ng-template #soData>
+                    <span class="conversa-data">
+                    {{ conversa.dataUltimaMensagem | date:'dd/MM/yyyy' }}
+                    </span>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+ 
+    <div *ngIf="conversasFiltradas.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semConversas">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semConversas>
+            <div class="no-data-message">
+                <img src="assets/imagens/empty/no-data.svg" alt="Sem conversas">
+                <p>Você ainda não possui conversas.</p>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<app-feedback></app-feedback>
