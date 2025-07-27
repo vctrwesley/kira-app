@@ -10,6 +10,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { UsuarioService } from '../../services/config/usuario.service';
+import { ErrorMessageService } from '../../services/feedback/error-message.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -30,21 +31,22 @@ export class CadastroComponent implements OnInit {
   loading = true;
   isLoading: boolean = false;
 
-  LOCATARIO = "LOCATARIO";
-  LOCADOR = "LOCADOR";
+  LOCATARIO = 'LOCATARIO';
+  LOCADOR = 'LOCADOR';
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private errorMessageService: ErrorMessageService
   ) {
     this.usuarioForm = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
-      permissao: ["LOCATARIO", [Validators.required]],
+      permissao: ['LOCATARIO', [Validators.required]],
       dataNascimento: ['', [Validators.required]],
       documento: ['', [Validators.required]],
       aceitarTermos: [false, [Validators.requiredTrue]],
@@ -59,8 +61,7 @@ export class CadastroComponent implements OnInit {
 
   onSubmit() {
     if (this.usuarioForm.valid) {
-      const { aceitarTermos, ...dadosParaEnvio } =
-        this.usuarioForm.value;
+      const { aceitarTermos, ...dadosParaEnvio } = this.usuarioForm.value;
 
       console.log('Dados para envio ao backend:', dadosParaEnvio);
 
@@ -89,7 +90,13 @@ export class CadastroComponent implements OnInit {
         error: (error) => {
           this.isLoading = false;
           this.mensagemSucesso = '';
-          this.errors = [error.message || 'Erro ao cadastrar usuário.'];
+          const status = error.status || 500;
+          const msg = this.errorMessageService.getErrorMessage(
+            status,
+            'POST',
+            'usuário'
+          );
+          this.errors = [msg];
           console.error('❌ Erro no cadastro:', error);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         },
