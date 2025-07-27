@@ -319,6 +319,17 @@ main {
   border-color: #dc3545;
 }
 
+.btn-login:disabled,
+.btn-login[disabled] {
+  background: #8a007fca;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: 0.7;
+  border: none;
+  box-shadow: none;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+}
+
 /* Breakpoints */
 @media (min-width: 768px) and (max-width: 920px) {
   .logo-top-left {
