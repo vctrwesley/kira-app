@@ -9,7 +9,7 @@
 }
 
 .banner {
-  background-image: url("/assets/imagens/banners/imoveis-disponiveis.png");
+  background-image: url("/assets/imagens/banners/favoritos.png");
   background-size: cover;
   background-position: center;
   padding: 32px;
@@ -192,7 +192,7 @@
 }
 
 .btn-visualizar {
-  background: var(--kira-primary);
+  background: #007bff;
   color: #ffffff;
   border: none;
   font-size: 0.875rem;
@@ -207,7 +207,7 @@
 
 .btn-remover-favorito {
   background: #ffffff;
-  border: 1px solid #e91e63;
+  border: 1px solid #6b112f;
   cursor: pointer;
   transition: all 0.2s ease;
 }

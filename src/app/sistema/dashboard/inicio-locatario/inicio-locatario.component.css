@@ -72,6 +72,7 @@
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 24px;
   margin-bottom: 32px;
+  justify-content: center;
 }
 
 .imovel-card {
@@ -107,9 +108,11 @@
 
 .card-header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: space-between;
   gap: 12px;
   margin-bottom: 16px;
+  width: 100%;
 }
 
 .imovel-avatar {
@@ -126,6 +129,7 @@
 
 .imovel-info {
   flex: 1;
+  overflow: hidden;
 }
 
 .imovel-info h3 {
@@ -133,7 +137,6 @@
 	font-size: 18px;
 	font-weight: 600;
 	color: #1a1918;
-  width: 260px;
   white-space: calc(-webkit-min-content);
   text-overflow: ellipsis;
   overflow: hidden;
@@ -375,19 +378,19 @@
     width: 100%;
   }
   
-  .imoveis-grid {
+  /* .imoveis-grid {
     grid-template-columns: 1fr;
     gap: 16px;
-  }
+  } */
   
   .detalhes {
     gap: 8px;
   }
   
-  .card-footer {
+  /* .card-footer {
     flex-direction: column;
     gap: 12px;
-  }
+  } */
   
   .btn-visualizar {
     width: 100%;
