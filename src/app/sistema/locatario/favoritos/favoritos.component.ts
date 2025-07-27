@@ -11,7 +11,7 @@ export class FavoritosComponent implements OnInit {
   favoritos: FavoritoResponse[] = [];
   isLoading = false;
   
-  itensPorPagina = 6;
+  itensPorPagina = 9;
   paginaAtual = 1;
   totalPaginas = 0;
   favoritosPaginados: FavoritoResponse[] = [];

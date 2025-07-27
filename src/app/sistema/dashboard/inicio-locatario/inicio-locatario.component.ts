@@ -15,7 +15,7 @@ export class InicioLocatarioComponent implements OnInit {
   isLoading = false;
 
   imoveis: Imovel[] = [];
-  itensPorPagina = 6;
+  itensPorPagina = 12;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.imoveis.length / this.itensPorPagina);
   imoveisPaginados: Imovel[] = [];
@@ -128,8 +128,10 @@ export class InicioLocatarioComponent implements OnInit {
   }
 
   private removerFavorito(imovelId: number): void {
-    this.favoritoService.removerFavorito(imovelId).subscribe({
-      next: () => {
+    const favoritoId = this.favoritos.get(imovelId);
+    if (favoritoId) {
+      this.favoritoService.removerFavorito(favoritoId).subscribe({
+        next: () => {
         console.log(`Imóvel ${imovelId} removido dos favoritos`);
         this.carregarFavoritos();
       },
@@ -137,6 +139,7 @@ export class InicioLocatarioComponent implements OnInit {
         console.error('Erro ao remover favorito:', error);
       }
     });
+  }
   }
 
   private carregarFavoritos(): void {
