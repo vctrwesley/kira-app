@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Imovel } from '../../sistema/locador/models/imovel';
 import { AuthService } from '../config/auth.service';
+import { ImovelFactory } from '../../sistema/locador/models/factories/imovel.factory';
 
 @Injectable({
   providedIn: 'root',
@@ -51,19 +52,9 @@ export class ImovelService {
 
   getImovelById(id: number): Observable<Imovel> {
     const url = `${this.apiURL}/${id}`;
-    return this.http.get<Imovel>(url).pipe(
-      map((response) => response),
-      catchError((error) => {
-        let errorMessage = 'Erro ao buscar o imóvel.';
-
-        if (error.error instanceof ErrorEvent) {
-          errorMessage = `Erro: ${error.error.message}`;
-        } else if (error.status) {
-          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
-        }
-        console.error(errorMessage);
-        return throwError(() => new Error(errorMessage));
-      })
+    return this.http.get<any>(url).pipe(
+      map(ImovelFactory.criar),
+      catchError((error) => this.handleError('buscar o imóvel', error))
     );
   }
 
@@ -124,7 +115,6 @@ export class ImovelService {
     console.log('🔸 URL completa enviada:', url);
 
     return this.http.get<Imovel[]>(url).pipe(
-
       map((response) => {
         return response;
       }),
@@ -140,5 +130,18 @@ export class ImovelService {
         return throwError(() => new Error(errorMessage));
       })
     );
+  }
+
+  private handleError(contexto: string, error: any): Observable<never> {
+    let errorMessage = `Erro ao ${contexto}.`;
+
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Erro: ${error.error.message}`;
+    } else if (error.status) {
+      errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+    }
+
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }
