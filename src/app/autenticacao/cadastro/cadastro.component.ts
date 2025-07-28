@@ -90,12 +90,21 @@ export class CadastroComponent implements OnInit {
         error: (error) => {
           this.isLoading = false;
           this.mensagemSucesso = '';
-          const status = error.status || 500;
-          const msg = this.errorMessageService.getErrorMessage(
-            status,
-            'POST',
-            'usuário'
-          );
+          let status = 500;
+          if (error.status) {
+            status = Number(error.status);
+          } else if (error.error && error.error.status) {
+            status = Number(error.error.status);
+          }
+
+          const backendMsg = error.error?.message;
+          const msg = backendMsg
+            ? `Usuário: ${backendMsg}`
+            : this.errorMessageService.getErrorMessage(
+                status,
+                'POST',
+                'usuário'
+              );
           this.errors = [msg];
           console.error('❌ Erro no cadastro:', error);
           window.scrollTo({ top: 0, behavior: 'smooth' });
